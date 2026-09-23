@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ONCE, ONE'S BY JOSUN HOTEL — 1인 프리미엄 공간 & 상품 쇼케이스</title>
+  <meta name="description" content="조선호텔앤리조트의 1인 전용 프리미엄 호캉스 브랜드 ONCE, ONE'S 공식 쇼케이스. Track A 프라이빗 스위트부터 Track B 소셜 와인 살롱, 시그니처 1인 패키지까지.">
+
+  <!-- Fonts: Pretendard & Luxury Serif -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  
+  <!-- Leaflet Free Map CSS (No API Key Required) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/showcase.css">
+</head>
+<body>
+
+  <!-- Luxury Sticky Navbar -->
+  <header class="luxury-navbar">
+    <a href="#" class="nav-brand">
+      <div class="brand-emblem">O</div>
+      <div class="brand-title-wrap">
+        <span class="brand-logo-text">ONCE, ONE'S</span>
+        <span class="brand-subtext">BY JOSUN HOTEL &amp; RESORTS</span>
+      </div>
+    </a>
+
+    <!-- Nav Links for Smooth Scrolling -->
+    <nav class="nav-links">
+      <a href="#showcaseSection" class="nav-link-btn active">공간 &amp; 상품</a>
+      <a href="#gallerySection" class="nav-link-btn">호텔 &amp; 객실 갤러리</a>
+      <a href="#mapSection" class="nav-link-btn">호텔 지점 찾기 (지도)</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="btn-nav-curator" id="btnNavCurator">
+        <span>✨ 1인 취향 큐레이터</span>
+      </button>
+
+      <button class="btn-cart-toggle" id="btnCartToggle" aria-label="장바구니 열기">
+        <span>🛍️</span>
+        <span class="cart-count-badge" id="cartBadge" style="display: none;">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-pill">✦ JOSUN SOLO LUXURY STAYCATION</div>
+      <h1 class="hero-title">
+        "혼자인데,<br>
+        이렇게 <span>대접받아도</span> 되나요?"
+      </h1>
+      <p class="hero-subtitle">
+        한 번 와도, 혼자 와도 우리 사람 —<br>
+        타인의 시선에서 완전히 자유로운 <strong>Track A (완벽한 사적 휴식)</strong>와<br>
+        취향 기반의 느슨한 연대를 선사하는 <strong>Track B (소셜 와인 살롱)</strong>를 만나보세요.
+      </p>
+      
+      <div class="hero-actions">
+        <button class="btn-hero-primary" id="btnHeroCurator">
+          <span>✨ 나만의 1인 코스 진단하기</span>
+        </button>
+        <button class="btn-hero-secondary" id="btnHeroVideo">
+          <span>🎬 18초 브랜드 스토리 감상</span>
+        </button>
+        <button class="btn-hero-secondary" id="btnHeroCardnews">
+          <span>📰 공식 카드뉴스 보기</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Showcase Container (Spaces & Products) -->
+  <main class="showcase-container" id="showcaseSection">
+    
+    <!-- Control Card: Tabs & Filters -->
+    <div class="showcase-control-card">
+      
+      <!-- Primary Tab Switcher: Spaces vs Products -->
+      <nav class="main-tab-switcher" aria-label="메인 쇼케이스 탭">
+        <button class="main-tab-btn active" id="tabBtnSpaces">
+          <span>🏛️</span> 공간 (SPACES)
+        </button>
+        <button class="main-tab-btn" id="tabBtnProducts">
+          <span>🎁</span> 상품 · 패키지 (PRODUCTS)
+        </button>
+      </nav>
+
+      <!-- Sub Filters Row -->
+      <div class="sub-filter-row">
+        <div class="filter-chips-wrap" id="filterChipsWrap">
+          <!-- Dynamically populated by appShowcase.js -->
+        </div>
+        <div class="filter-meta-text" id="filterMetaCount">
+          총 <span>0</span>개의 항목
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Cards Grid -->
+    <section class="cards-grid" id="cardsGridContainer" aria-label="쇼케이스 카드 목록">
+      <!-- Dynamically Rendered by spaceService.js & productService.js -->
+    </section>
+
+  </main>
+
+  <!-- ────────────────────────────────────────────────
+       2. Hotel & Room Photo Gallery Section
+  ──────────────────────────────────────────────── -->
+  <section class="gallery-section" id="gallerySection" aria-label="호텔 및 객실 사진 갤러리">
+    <div class="section-header-luxury">
+      <span class="section-pill-tag">VISUAL GALLERY ARCHIVE</span>
+      <h2 class="section-main-title">호텔 &amp; 객실 <span>포토 갤러리</span></h2>
+      <p class="section-sub-desc">19세기 부티크 스위트부터 탁 트인 환구단·해운대 전망, 프라이빗 와인 살롱까지 고화질로 감상해보세요.</p>
+    </div>
+
+    <!-- Gallery Category Filter Chips -->
+    <div class="gallery-filter-chips" id="galleryFilterChips">
+      <button class="gallery-chip-btn active" data-filter="all">전체 사진 (9)</button>
+      <button class="gallery-chip-btn" data-filter="room">스위트 객실</button>
+      <button class="gallery-chip-btn" data-filter="salon">소셜 살롱 &amp; 라운지</button>
+      <button class="gallery-chip-btn" data-filter="dining">다이닝 &amp; 바</button>
+      <button class="gallery-chip-btn" data-filter="amenity">어메니티 &amp; 굿즈</button>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-grid" id="galleryGridContainer">
+      <!-- Injected by appShowcase.js from HOTEL_GALLERY -->
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────────────
+       3. Hotel Locator & Free Interactive Map Section
+  ──────────────────────────────────────────────── -->
+  <section class="hotel-map-section" id="mapSection" aria-label="호텔 지점 찾기 무료 지도">
+    <div class="section-header-luxury">
+      <span class="section-pill-tag">FREE INTERACTIVE MAP</span>
+      <h2 class="section-main-title">ONCE, ONE'S <span>호텔 지점 찾기</span></h2>
+      <p class="section-sub-desc">별도의 API 키 없이 무료 오픈 지도로 서울과 부산의 3대 조선호텔 사업장 위치와 교통편을 확인하세요.</p>
+    </div>
+
+    <div class="hotel-map-layout">
+      <!-- Left: Hotel List Sidebar -->
+      <div class="hotel-list-sidebar" id="hotelListSidebar">
+        <!-- Injected by appShowcase.js from HOTEL_LOCATIONS -->
+      </div>
+
+      <!-- Right: Free Leaflet Map Container -->
+      <div class="hotel-map-container">
+        <div id="hotelMap"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cart Drawer (Right Slide-in) -->
+  <aside class="cart-drawer-overlay" id="cartDrawerOverlay">
+    <div class="cart-drawer">
+      <div class="cart-header">
+        <div class="cart-title">
+          <span>🛍️</span> 1인 위시리스트 &amp; 장바구니
+        </div>
+        <button class="btn-cart-close" id="btnCartClose" aria-label="닫기">&times;</button>
+      </div>
+
+      <div class="cart-items-wrap">
+        <!-- Injected by cartService.js -->
+      </div>
+
+      <div class="cart-footer">
+        <div class="cart-total-row">
+          <span class="total-label">예상 결제 금액</span>
+          <span class="total-amount">₩0</span>
+        </div>
+        <button class="btn-cart-checkout">
+          1인 패키지 예약 진행하기 &rarr;
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Modal Dialog Backdrop -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div id="modalContainer">
+      <!-- Injected by modalService.js -->
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-msg" id="toastMsg">알림 메시지</div>
+
+  <!-- Luxury Footer -->
+  <footer class="luxury-footer">
+    <div class="footer-content">
+      <div>
+        <div class="footer-brand-title">ONCE, ONE'S BY JOSUN HOTEL</div>
+        <p class="footer-copy">
+          조선호텔앤리조트 1인 프리미엄 호캉스 서브 브랜드<br>
+          사업장: 레스케이프 호텔 · 웨스틴 조선 서울 · 그랜드 조선 부산<br>
+          고객 컨시어지 센터: 02-317-4000 &middot; 서울특별시 중구 소공로 106
+        </p>
+      </div>
+      <div>
+        <p class="footer-copy" style="text-align: right;">
+          No-Database Pure Vanilla JS &amp; Free OpenStreetMap Architecture<br>
+          Designed for Solo Luxury Staycation Experiences<br>
+          &copy; 2026 JOSUN HOTEL &amp; RESORTS. All Rights Reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Leaflet Free Map JavaScript CDN (No API Key Required) -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Application Scripts (No DB, Pure Vanilla JS) -->
+  <script src="data/spaces.js"></script>
+  <script src="data/products.js"></script>
+  <script src="data/hotels.js"></script>
+  <script src="js/spaceService.js"></script>
+  <script src="js/productService.js"></script>
+  <script src="js/cartService.js"></script>
+  <script src="js/quizService.js"></script>
+  <script src="js/modalService.js"></script>
+  <script src="js/appShowcase.js"></script>
+
+</body>
+</html>
